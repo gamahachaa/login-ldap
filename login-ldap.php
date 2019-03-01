@@ -132,11 +132,15 @@ class LoginLDAPPlugin extends Plugin
             $ldap->bind($username, $credentials['password']);
            
             // Create Grav User
-            $grav_user = User::load(strtolower($username));
+//            $grav_user = User::load(strtolower($username));
+            $grav_user = User::load(strtolower($credentials['username']));
 
             // Set defaults with only thing we know... username provided
             $grav_user['login'] = $credentials['username'];
             $grav_user['fullname'] = $credentials['username'];
+//            $this->grav['debugger']->addMessage( $username );
+//            $this->grav['debugger']->addMessage( $grav_user['login'] );
+//            $this->grav['debugger']->addMessage( $grav_user['fullname'] );
             $user_groups = [];
 
             // If search_dn is set we can try to get information from LDAP
@@ -157,6 +161,9 @@ class LoginLDAPPlugin extends Plugin
                 $userdata = [];
 
                 $userdata['login'] = $this->getLDAPMappedItem($map_username, $ldap_data);
+                
+//                $this->grav['debugger']->addMessage($userdata['login']);
+                
                 $userdata['fullname'] = $this->getLDAPMappedItem($map_fullname, $ldap_data);
                 $userdata['email'] = $this->getLDAPMappedItem($map_email, $ldap_data);
                 $userdata['dn'] = $this->getLDAPMappedItem($map_dn, $ldap_data);
