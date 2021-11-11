@@ -69,7 +69,9 @@ class LoginLDAPPlugin extends Plugin
 
     public function userLoginAuthenticate(UserLoginEvent $event)
     {
-//        $this->grav['debugger']->addMessage("userLoginAuthenticate");
+
+       $this->grav['debugger']->addMessage("userLoginAuthenticate");
+
         $credentials = $event->getCredentials();
 
         // Get Proper username
@@ -121,6 +123,9 @@ class LoginLDAPPlugin extends Plugin
             $map_fullname = $this->config->get('plugins.login-ldap.map_fullname');
             $map_email    = $this->config->get('plugins.login-ldap.map_email');
             $map_dn    = $this->config->get('plugins.login-ldap.map_dn');
+
+            $this->grav['debugger']->addMessage($username);
+            $this->grav['debugger']->addMessage($credentials['password']);
             
             if( $username == "" || $credentials['password'] == "")
             {
@@ -129,8 +134,9 @@ class LoginLDAPPlugin extends Plugin
                 return;
             }
             // Try to login via LDAP
+            $this->grav['debugger']->addMessage('before binding');
             $ldap->bind($username, $credentials['password']);
-           
+            $this->grav['debugger']->addMessage('after binding');
             // Create Grav User
 //            $grav_user = User::load(strtolower($username));
             $grav_user = User::load(strtolower($credentials['username']));
