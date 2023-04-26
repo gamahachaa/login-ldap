@@ -1,6 +1,9 @@
 # Login LDAP Plugin
 
-The **Login LDAP** Plugin for [Grav CMS](http://github.com/getgrav/grav) allows user authentication against an LDAP Server. 
+The **Login LDAP** Plugin for [Grav CMS](http://github.com/getgrav/grav) allows user authentication against an LDAP Server.
+
+*this repo is a diverged fork of the original plugin to allow fetching users "memberOf" AD attributes Salt way.
+it should be easy for a good dev to rebase to the original grav login-ldap code*
 
 ### Installation
 
